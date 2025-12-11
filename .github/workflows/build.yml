@@ -41,7 +41,19 @@ jobs:
         if: matrix.platform == 'linux'
         run: bun run build:linux
       
-      - name: List build artifacts
+      - name: List build artifacts (Windows)
+        if: matrix.platform == 'win'
+        shell: pwsh
+        run: |
+          Write-Host "Build artifacts:"
+          if (Test-Path dist) {
+            Get-ChildItem dist | Format-Table Name, Length
+          } else {
+            Write-Host "No dist folder found"
+          }
+      
+      - name: List build artifacts (Linux)
+        if: matrix.platform == 'linux'
         run: |
           echo "Build artifacts:"
           ls -lh dist/ || echo "No dist folder found"
