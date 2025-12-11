@@ -36,14 +36,15 @@ jobs:
       - name: Build application for Windows
         if: matrix.platform == 'win'
         run: bun run build:win
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Build application for Linux
         if: matrix.platform == 'linux'
         run: bun run build:linux
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: List build artifacts
+        run: |
+          echo "Build artifacts:"
+          ls -lh dist/ || echo "No dist folder found"
       
       - name: Upload Windows artifacts
         if: matrix.platform == 'win'
@@ -54,6 +55,7 @@ jobs:
             dist/*.exe
             dist/*.msi
           retention-days: 7
+          if-no-files-found: error
       
       - name: Upload Linux artifacts
         if: matrix.platform == 'linux'
@@ -62,14 +64,16 @@ jobs:
           name: linux-build
           path: |
             dist/*.AppImage
-            dist/*.deb
           retention-days: 7
+          if-no-files-found: error
   
   release:
     name: Create Release
     needs: build
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
     
     steps:
       - name: Checkout code
@@ -86,6 +90,13 @@ jobs:
         with:
           name: linux-build
           path: dist-linux
+      
+      - name: Verify artifacts before release
+        run: |
+          echo "Windows artifacts:"
+          ls -lh dist-windows/ || echo "No Windows artifacts"
+          echo "Linux artifacts:"
+          ls -lh dist-linux/ || echo "No Linux artifacts"
       
       - name: Create Release
         uses: softprops/action-gh-release@v1

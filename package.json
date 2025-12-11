@@ -27,6 +27,7 @@
   "build": {
     "appId": "com.keyboardfun.app",
     "productName": "Keyboard Fun",
+    "publish": null,
     "directories": {
       "output": "dist"
     },
