@@ -1,0 +1,18 @@
+# Bun configuration file
+# https://bun.sh/docs/runtime/bunfig
+
+[install]
+# Use exact versions for reproducible builds
+exact = true
+
+# Automatically install peer dependencies
+auto = true
+
+# Use global cache
+cache = true
+
+[install.lockfile]
+# Save lockfile (bun.lockb)
+save = true
+print = "yarn"
+

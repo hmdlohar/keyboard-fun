@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Fun</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ Keyboard Fun ✨</h1>
+            <p class="subtitle">Type anything you want!</p>
+            <div class="exit-hint">Exit: Ctrl + Alt + Shift + Q</div>
+        </div>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label>Font Size:</label>
+                <button id="fontSmaller" class="btn-control">A-</button>
+                <span id="fontSizeDisplay" class="font-size-display">3</span>
+                <button id="fontBigger" class="btn-control">A+</button>
+            </div>
+            
+            <div class="control-group">
+                <label>Text Case:</label>
+                <button id="caseNormal" class="btn-control">Normal</button>
+                <button id="caseUpper" class="btn-control active">UPPER</button>
+                <button id="caseLower" class="btn-control">lower</button>
+            </div>
+        </div>
+        
+        <div class="editor-container">
+            <textarea 
+                id="textEditor" 
+                class="text-editor" 
+                placeholder="Start typing... 🎉"
+                autofocus
+            ></textarea>
+        </div>
+
+        <div class="footer">
+            <div class="stats">
+                <span id="charCount">Characters: 0</span>
+                <span id="wordCount">Words: 0</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
+
